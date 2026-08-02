@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ex.No:02 - Working with HTML5 Form and Media Elements</title>
+  <style>
+    /* CSS for Ex.No:02 Lab Exercise */
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+      color: #333333;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Header Styling */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .profile-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #0056b3;
+    }
+
+    .profile-name {
+      font-size: 26px;
+      color: #222222;
+      margin: 0;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #f8f9fa;
+      border: 1px solid #e0e0e0;
+      margin: 15px 0 20px 0;
+      padding: 8px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: #0056b3;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .search-box input[type="search"] {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    /* Main Grid Layout */
+    .main-content {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* Sidebar Skills Table */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      background-color: #fafafa;
+      border: 1px solid #e0e0e0;
+      padding: 12px;
+    }
+
+    .skills-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .skills-table td {
+      padding: 8px 4px;
+      font-size: 14px;
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    .skills-table progress {
+      width: 100%;
+      height: 12px;
+    }
+
+    /* Content Area */
+    .content-area {
+      flex: 1;
+    }
+
+    /* Media Container */
+    .media-container {
+      background-color: #000000;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .media-container video {
+      width: 100%;
+      max-height: 280px;
+      display: block;
+    }
+
+    .audio-player {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f1f3f4;
+      border-radius: 4px;
+    }
+
+    /* Forms Section */
+    .forms-grid {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    fieldset {
+      flex: 1;
+      border: 1px solid #cccccc;
+      border-radius: 6px;
+      padding: 15px;
+      background-color: #ffffff;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #333333;
+      padding: 0 8px;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-group label {
+      width: 130px;
+      font-size: 13px;
+      color: #444444;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"],
+    .form-group input[type="date"],
+    .form-group input[type="tel"],
+    .form-group input[type="email"],
+    .form-group input[type="url"],
+    .form-group select,
+    .form-group textarea {
+      flex: 1;
+      padding: 5px 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .radio-group, .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .submit-btn {
+      background-color: #f0f0f0;
+      border: 1px solid #adadad;
+      padding: 6px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Embed & Iframe Section */
+    .embed-grid {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .embed-box {
+      flex: 1;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .embed-box iframe, .embed-box embed {
+      width: 100%;
+      height: 220px;
+      border: none;
+    }
+
+    /* Footer Styling */
+    footer {
+      border-top: 1px solid #e0e0e0;
+      padding-top: 15px;
+      font-size: 13px;
+      color: #666666;
+    }
+
+    footer p {
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HTML Comment: Ex.No:02 WORKING WITH HTML5 FORM AND MEDIA ELEMENTS -->
+  <!-- Objective: Build a website conforming to HTML5 standards with doctype, html, head, title, body, div, p, headings, image, anchor, table, audio, video, embed, iframe, form, input, select, progress, fieldset, label, etc. -->
+
+  <div class="container">
+
+    <!-- Header Section -->
+    <header>
+      <div class="profile-section">
+        <!-- Profile Image -->
+        <img 
+          src="C:\Users\HP PAVILION\OneDrive\Pictures\Night light.jpg"
+          alt="Ms.Mariah Caraiban Profile Photo" 
+          class="profile-img"
+        >
+      </div>
+      <div>
+        <h1 class="profile-name">Mr.Gautham Manoj</h1>
+      </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="nav-links">
+        <a href="#academics">Academics</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#friends">Friends</a>
+      </div>
+      <div class="search-box">
+        <input type="search" placeholder="Search...">
+      </div>
+    </nav>
+
+    <!-- Main Section (Sidebar + Media Content) -->
+    <div class="main-content">
+
+      <!-- Sidebar Table with Skills and Progress Bar -->
+      <aside class="sidebar">
+        <h3>Skills</h3>
+        <table class="skills-table">
+          <tr>
+            <td>Photoshop</td>
+          </tr>
+          <tr>
+            <td><progress value="85" max="100"></progress></td>
+          </tr>
+          <tr>
+            <td>Java</td>
+          </tr>
+          <tr>
+            <td><progress value="75" max="100"></progress></td>
+          </tr>
+          <tr>
+            <td>C++</td>
+          </tr>
+          <tr>
+            <td><progress value="80" max="100"></progress></td>
+          </tr>
+          <tr>
+            <td>PHP</td>
+          </tr>
+          <tr>
+            <td><progress value="70" max="100"></progress></td>
+          </tr>
+          <tr>
+            <td>Javascript</td>
+          </tr>
+          <tr>
+            <td><progress value="90" max="100"></progress></td>
+          </tr>
+        </table>
+      </aside>
+
+      <!-- Center Media Section -->
+      <main class="content-area">
+        
+        <!-- Video Element -->
+        <div class="media-container">
+          <video controls poster="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 280' width='500' height='280'><rect width='500' height='280' fill='%2365a30d'/><circle cx='250' cy='120' r='35' fill='%23ffffff'/><ellipse cx='220' cy='85' rx='10' ry='15' fill='%23ffffff'/><ellipse cx='280' cy='85' rx='10' ry='15' fill='%23ffffff'/><ellipse cx='195' cy='110' rx='8' ry='12' fill='%23ffffff'/><ellipse cx='305' cy='110' rx='8' ry='12' fill='%23ffffff'/><text x='250' y='210' font-family='sans-serif' font-weight='bold' font-size='20' fill='%23ffffff' text-anchor='middle'>HTML5 Video Element</text></svg>">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Audio Element -->
+        <div class="audio-player">
+          <p style="margin: 0 0 5px 0; font-size: 13px; font-weight: bold;">Audio Element Sample:</p>
+          <audio controls style="width: 100%;">
+            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- HTML5 Form Section with Fieldsets -->
+    <form action="/action_page.php" method="get">
+      <div class="forms-grid">
+
+        <!-- Fieldset 1: Personal Information -->
+        <fieldset>
+          <legend>Personal Information</legend>
+
+          <div class="form-group">
+            <label for="fname">User name:</label>
+            <input type="text" id="fname" name="fname" placeholder="Enter the user name">
+          </div>
+
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" id="pwd" name="pwd" placeholder="Maxlength-10" maxlength="10">
+          </div>
+
+          <div class="form-group">
+            <label for="regno">Reg No:</label>
+            <input type="text" id="regno" name="regno" placeholder="UR15CS001">
+          </div>
+
+          <div class="form-group">
+            <label for="age">Age:</label>
+            <select id="age" name="age">
+              <option value="19-24">19-24</option>
+              <option value="25-30">25-30</option>
+              <option value="31-40">31-40</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Gender:</label>
+            <div class="radio-group">
+              <input type="radio" id="male" name="gender" value="Male">
+              <label for="male" style="width: auto;">Male</label>
+              <input type="radio" id="female" name="gender" value="Female">
+              <label for="female" style="width: auto;">Female</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dob">DOB:</label>
+            <input type="date" id="dob" name="dob">
+          </div>
+
+          <div class="form-group">
+            <label for="favcolor">Favorite Color:</label>
+            <input type="color" id="favcolor" name="favcolor" value="#0056b3">
+          </div>
+
+          <div class="form-group">
+            <label for="photo">Change Profile Photo:</label>
+            <input type="file" id="photo" name="photo">
+          </div>
+
+        </fieldset>
+
+        <!-- Fieldset 2: Contact Information -->
+        <fieldset>
+          <legend>Contact Information</legend>
+
+          <div class="form-group">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="3" placeholder="Enter your full address"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="state">State:</label>
+            <select id="state" name="state">
+              <option value="">Select State</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Maharashtra">Maharashtra</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="zipcode">Zipcode:</label>
+            <input type="text" id="zipcode" name="zipcode" placeholder="only 6 numbers" pattern="[0-9]{6}">
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile:</label>
+            <input type="tel" id="mobile" name="mobile" placeholder="+9199999-99999">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="valid email">
+          </div>
+
+          <div class="form-group">
+            <label for="url">URL:</label>
+            <input type="url" id="url" name="url" placeholder="valid url">
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="verify" name="verify">
+              <label for="verify" style="width: auto;">I verified</label>
+            </div>
+          </div>
+
+          <div>
+            <input type="submit" value="Submit" class="submit-btn">
+          </div>
+
+        </fieldset>
+
+      </div>
+    </form>
+
+    <!-- Embed & Iframe Media Elements -->
+    <div class="embed-grid">
+      
+      <!-- Embedded Document / Iframe -->
+      <div class="embed-box">
+        <iframe title="Document Preview" srcdoc="<body style='font-family:sans-serif;padding:15px;'><h3>Ex.No:2 Working with HTML5 Form and Media Elements</h3><p>Build a website that conforms to HTML5 standards and has form, media elements, fieldsets, and controls.</p></body>"></iframe>
+      </div>
+
+      <!-- Embedded Google Maps Iframe -->
+      <div class="embed-box">
+        <iframe 
+          title="Google Map Location" 
+          src="https://maps.google.com/maps?q=Karunya%20University,%20Coimbatore&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <p>Your address</p>
+      <p>&copy; 2020-2021. (Register number) - Web Technology Lab Batch 1. All Rights Reserved.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
