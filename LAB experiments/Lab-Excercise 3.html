@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ex.No:03 - Responsive Webpage Using HTML5 and CSS3</title>
+  <style>
+    /* CSS3 Styling for Ex.No:03 */
+
+    /* Margins & Padding demonstration */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Georgia, Garamond, serif;
+      background-color: #e9ecef;
+      color: #333333;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Header Section */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #0056b3;
+    }
+
+    .profile-section {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .profile-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0056b3;
+    }
+
+    .profile-name {
+      font-family: Georgia, serif;
+      font-size: 26px;
+      font-weight: bold;
+      color: #222222;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-icon {
+      width: 32px;
+      height: 32px;
+      background-color: #0056b3;
+      color: #ffffff;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+
+    .social-icon:hover {
+      background-color: #003d80;
+    }
+
+    /* Navigation Bar Links with :link, :visited, :hover, :active */
+    nav {
+      background-color: #20b2aa;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-around;
+      border-radius: 4px;
+    }
+
+    nav a:link {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      padding: 6px 16px;
+      display: inline-block;
+    }
+
+    nav a:visited {
+      color: #f0f0f0;
+    }
+
+    nav a:hover {
+      background-color: #17a2b8;
+      border-radius: 4px;
+      text-decoration: underline;
+    }
+
+    nav a:active {
+      background-color: #117a8b;
+    }
+
+    /* Multi-Column Main Content */
+    .hero-layout {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      align-items: center;
+    }
+
+    .hero-text {
+      flex: 1;
+      padding-right: 10px;
+    }
+
+    .hero-text p {
+      font-size: 15px;
+      color: #444444;
+      text-align: justify;
+      margin-bottom: 12px;
+    }
+
+    .hero-banner {
+      flex: 1;
+      background: linear-gradient(135deg, #17a2b8, #20b2aa);
+      border-radius: 8px;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .hero-banner svg {
+      width: 120px;
+      height: 120px;
+      opacity: 0.9;
+    }
+
+    /* Technology Stack Grid (4 Boxes) */
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0056b3;
+      margin-bottom: 15px;
+      border-left: 4px solid #0056b3;
+      padding-left: 10px;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .tech-card {
+      color: #ffffff;
+      padding: 20px 10px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+    }
+
+    .tech-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-html5 { background-color: #e44d26; }
+    .card-css3  { background-color: #0277bd; }
+    .card-js    { background-color: #283593; }
+    .card-php   { background-color: #4527a0; }
+
+    .tech-card h3 {
+      font-size: 16px;
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    .tech-card p {
+      font-size: 12px;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+
+    /* Family / Mentors Section (3 Cards) */
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .family-card {
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 160px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .family-card-1 { background-color: #17a2b8; }
+    .family-card-2 { background-color: #20b2aa; }
+    .family-card-3 { background-color: #0056b3; }
+
+    .family-card h4 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+
+    .family-card p {
+      font-size: 13px;
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    /* List demonstration with circle */
+    .features-list {
+      list-style-type: circle;
+      padding-left: 25px;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .features-list li {
+      margin-bottom: 6px;
+    }
+
+    /* Footer Section */
+    footer {
+      border-top: 1px solid #e0e0e0;
+      padding-top: 15px;
+      font-size: 13px;
+      color: #666666;
+      text-align: left;
+    }
+
+    footer p {
+      margin: 4px 0;
+    }
+
+    /* CSS3 Media Queries for Responsiveness */
+    @media (max-width: 768px) {
+      .hero-layout {
+        flex-direction: column;
+      }
+
+      .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .family-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tech-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HTML Comment: Ex.No:03 RESPONSIVE WEBPAGE USING HTML5 AND CSS3 -->
+  <!-- Objective: To develop a webpage using HTML5 tags and apply styles using CSS3 properties like Normal flow and multicolumn layout -->
+
+  <div class="container">
+
+    <!-- Header Section -->
+    <header>
+      <div class="profile-section">
+        <img src="images/night_light.jpg" alt="Profile Photo" class="profile-img">
+        <div>
+          <h1 class="profile-name">Mr. Gautham Manoj</h1>
+        </div>
+      </div>
+      <div class="social-icons">
+        <a href="#" class="social-icon" title="Facebook">f</a>
+        <a href="#" class="social-icon" title="Twitter">t</a>
+        <a href="#" class="social-icon" title="Instagram">i</a>
+      </div>
+    </header>
+
+    <!-- Navigation Links -->
+    <nav>
+      <a href="#personal">Personal</a>
+      <a href="#academic">Academic</a>
+      <a href="#activity">Activity</a>
+      <a href="#others">Others</a>
+    </nav>
+
+    <!-- Hero Multi-Column Layout -->
+    <div class="hero-layout">
+      <div class="hero-text">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a volutpat ex, ut blandit neque. Cras malesuada consectetur leo, porta malesuada purus volutpat in.
+        </p>
+        <p>
+          Responsive design ensures that your web application looks great on all screen sizes, from mobile phones and tablets to desktop monitors.
+        </p>
+      </div>
+      <div class="hero-banner">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="20" r="12" stroke="white" stroke-width="3"/>
+          <path d="M12 52C12 42 20 36 32 36C44 36 52 42 52 52" stroke="white" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Technologies Grid Section -->
+    <h2 class="section-title">Web Technologies</h2>
+    <div class="tech-grid">
+      <div class="tech-card card-html5">
+        <div style="font-size: 28px;">5</div>
+        <h3>HTML5</h3>
+        <p>Markup</p>
+      </div>
+
+      <div class="tech-card card-css3">
+        <div style="font-size: 28px;">3</div>
+        <h3>CSS3</h3>
+        <p>Styling</p>
+      </div>
+
+      <div class="tech-card card-js">
+        <div style="font-size: 28px;">JS</div>
+        <h3>Javascript</h3>
+        <p>Scripting</p>
+      </div>
+
+      <div class="tech-card card-php">
+        <div style="font-size: 28px;">PHP</div>
+        <h3>PHP</h3>
+        <p>Backend</p>
+      </div>
+    </div>
+
+    <!-- Family / Quotes Section -->
+    <h2 class="section-title">Inspirations</h2>
+    <div class="family-grid">
+      <div class="family-card family-card-1">
+        <h4>MR. FATHER'S NAME</h4>
+        <p>"It was my father who taught me to value myself. He told me that I was uncommonly beautiful and that I was the most precious thing in his life."</p>
+      </div>
+
+      <div class="family-card family-card-2">
+        <h4>MRS. MOTHER'S NAME</h4>
+        <p>"My mother taught me that we all have the power to achieve our dreams."</p>
+      </div>
+
+      <div class="family-card family-card-3">
+        <h4>SIS / BRO NAME</h4>
+        <p>"A sister is both your mirror - and your opposite."</p>
+      </div>
+    </div>
+
+    <!-- CSS3 Features List -->
+    <h2 class="section-title">CSS3 Features Demonstrated</h2>
+    <ul class="features-list">
+      <li>Margins and Padding (Box Model)</li>
+      <li>Custom Fonts, Letter Spacing, and Text Shadow</li>
+      <li>Responsive Flexbox & CSS Grid Layouts</li>
+      <li>Link State Selector Styling (:link, :visited, :hover, :active)</li>
+      <li>CSS3 Media Queries for Mobile Responsiveness</li>
+    </ul>
+
+    <!-- Footer Section -->
+    <footer>
+      <p>Your address</p>
+      <p>&copy; 2020-2021. UR15CS001 - Web Technology Lab Batch 1. All Rights Reserved.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
