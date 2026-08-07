@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Web Page Design - Advanced CSS3</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #fff; color: #333; }
+
+    .page-container { width: 100%; max-width: 1100px; margin: 0 auto; border: 1px solid #777; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+
+    /* 1. Header (Multiple Backgrounds & Gradients) */
+    header {
+      height: 180px; position: relative; background-color: #1e5ba8;
+      background-image: url('images/img_flower.jpg'), url('images/item1.jpg'), radial-gradient(ellipse at center, #2e7be5 0%, #174b8b 100%);
+      background-position: 15px 15px, 60px 45px, center; background-repeat: no-repeat, no-repeat, no-repeat; background-size: 80px 80px, 50px 60px, cover;
+    }
+    .header-overlay { position: absolute; right: 20px; bottom: 15px; background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 15px 50px 30px 5px; border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 0.85rem; }
+
+    /* 2. Navigation */
+    nav { background: #7f7f7f; display: flex; height: 38px; border-bottom: 1px solid #666; }
+    nav a { flex: 1; text-align: center; text-decoration: none; color: #333; font-size: 14px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+    nav a.active { background: #ff0000; color: #fff; font-weight: bold; }
+    nav a:hover:not(.active) { background: #999; color: #fff; }
+
+    /* 3. Favourites Section (Pink Container) */
+    .favourites-section { background: #ffaec9; padding: 25px 15px; display: flex; justify-content: center; }
+    .favourites-box { width: 280px; background: #008000; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .favourites-header { background: #005000; color: #fff; text-align: center; padding: 6px; font-size: 13px; font-weight: bold; }
+    .favourites-table { width: 100%; border-collapse: collapse; }
+    .favourites-table tr:nth-child(odd) { background: #90ee90; }
+    .favourites-table tr:nth-child(even) { background: #008000; }
+    .favourites-table tr:hover { background: #005500 !important; cursor: pointer; }
+    .favourites-table td { padding: 10px 15px; font-size: 13px; font-weight: bold; }
+    .itemName { color: #000; width: 70%; }
+    .favourites-table tr:nth-child(even) .itemName { color: #fff; }
+    .itemImg { width: 30%; text-align: right; opacity: 0.2; transition: opacity 0.3s; }
+    .itemImg img { width: 26px; height: 26px; object-fit: cover; vertical-align: middle; }
+    .itemName:hover + .itemImg { opacity: 1 !important; }
+
+    /* 4. Forms Section (Dark Background) */
+    .forms-section { background-image: linear-gradient(rgba(40,40,40,0.7), rgba(40,40,40,0.7)), url('images/keyboard_bg.jpg'); background-size: cover; background-position: center; padding: 40px 20px; display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+    .card { background: #fff; border-radius: 16px; padding: 30px 24px; width: 320px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); display: flex; flex-direction: column; }
+    .card h2 { text-align: center; font-size: 1.3rem; margin-bottom: 22px; color: #000; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 12px; color: #555; margin-bottom: 5px; font-weight: 500; }
+    .form-group input { width: 100%; padding: 10px 12px; font-size: 12px; border: 1px solid #ccc; background: #e0e0e0; border-radius: 5px; outline: none; transition: all 0.25s; color: #333; }
+    .form-group input::placeholder { color: #888; }
+    .form-group input:required { border: 2px solid #0066ff; }
+    .form-group input:focus { border: 3px solid red; background-color: #d4edda; }
+    .form-group input[type="email"]:invalid:not(:placeholder-shown) { color: red; border-color: red; }
+    .form-group input[type="email"]:valid { color: blue; border-color: blue; }
+    .btn-submit { width: 100%; padding: 10px; background: #0066ff; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: auto; transition: background 0.25s; }
+    .btn-submit:hover { background: #004ecc; }
+
+    /* 5. Footer */
+    footer { background: #fbe5c8; padding: 18px 25px; font-size: 13px; color: #333; border-top: 1px solid #e0cdb0; font-weight: bold; font-style: italic; }
+    footer p { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <header id="example1">
+      <div class="header-overlay">CSS3 Advanced Design</div>
+    </header>
+
+    <nav>
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#myself">Myself</a>
+      <a href="#others">Others</a>
+    </nav>
+
+    <section class="favourites-section">
+      <div class="favourites-box">
+        <div class="favourites-header">Favourites</div>
+        <table class="favourites-table">
+          <tr><td class="itemName">item1</td><td class="itemImg"><img src="images/item1.jpg" alt="item1"></td></tr>
+          <tr><td class="itemName">item2</td><td class="itemImg"><img src="images/item2.jpg" alt="item2"></td></tr>
+          <tr><td class="itemName">item3</td><td class="itemImg"><img src="images/item3.jpg" alt="item3"></td></tr>
+          <tr><td class="itemName">item4</td><td class="itemImg"><img src="images/item4.jpg" alt="item4"></td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="forms-section">
+      <div class="card">
+        <h2>Sign In</h2>
+        <form onsubmit="event.preventDefault();">
+          <div class="form-group"><label for="signin-user">Username</label><input type="text" id="signin-user" required placeholder="Enter Username / Email / Phone Number"></div>
+          <div class="form-group"><label for="signin-pass">Password</label><input type="password" id="signin-pass" required placeholder="Enter Password"></div>
+          <button type="submit" class="btn-submit">Sign In</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Sign Up</h2>
+        <form onsubmit="event.preventDefault();">
+          <div class="form-group"><label for="signup-name">Name</label><input type="text" id="signup-name" required placeholder="Enter Name"></div>
+          <div class="form-group"><label for="signup-email">Email</label><input type="email" id="signup-email" required placeholder="Enter Email"></div>
+          <div class="form-group"><label for="signup-pass">Password</label><input type="password" id="signup-pass" required placeholder="Enter Password"></div>
+          <button type="submit" class="btn-submit">Sign Up</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <p>Your address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</p>
+      <p>© 2026-2027. (URK24CS1158) - Web Technology Lab Batch 3. All Rights Reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>
