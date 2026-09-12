@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Workshop</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        h2 { color: #007bff; margin-bottom: 50px; }
+        
+        .car-container {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            margin: 0 auto 50px auto;
+        }
+
+        #glass {
+            position: absolute;
+            top: 20px;
+            left: 100px;
+            width: 100px;
+            height: 50px;
+            background-color: #0033cc;
+            clip-path: polygon(20% 0, 80% 0, 100% 100%, 0% 100%);
+        }
+
+        #body {
+            position: absolute;
+            top: 70px;
+            left: 50px;
+            width: 200px;
+            height: 40px;
+            background-color: #33cc33;
+            border-radius: 5px;
+        }
+
+        .tyre {
+            position: absolute;
+            top: 90px;
+            width: 40px;
+            height: 40px;
+            background-color: #000033;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        #tyre-left { left: 70px; }
+        #tyre-right { left: 190px; }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: 1px solid #007bff;
+            background-color: transparent;
+            color: #007bff;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .nav-link { display: inline-block; margin-top: 50px; text-decoration: none; color: #007bff; }
+        .nav-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <h2>3. Car Workshop</h2>
+
+    <div class="car-container">
+        <div id="glass"></div>
+        <div id="body"></div>
+        <div id="tyre-left" class="tyre"></div>
+        <div id="tyre-right" class="tyre"></div>
+    </div>
+
+    <div class="buttons-container">
+        <button id="btn-glass">Change Glass Color</button>
+        <button id="btn-body">Change Body Color</button>
+        <button id="btn-tyre-inc">Tyre Size Increase</button>
+        <button id="btn-tyre-dec">Tyre Size Decrease</button>
+        <button id="btn-reset">Reset</button>
+    </div>
+    
+    <br>
+    <a href="Lab-Experiment 7.html" class="nav-link">&larr; Back to Experiment Index</a>
+
+    <script>
+        $(document).ready(function(){
+            // Function to generate random hex color
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            let defaultTyreSize = 40;
+            let currentTyreSize = 40;
+            let tyreTop = 90;
+
+            $("#btn-glass").click(function(){
+                $("#glass").css("background-color", getRandomColor());
+            });
+
+            $("#btn-body").click(function(){
+                $("#body").css("background-color", getRandomColor());
+            });
+
+            $("#btn-tyre-inc").click(function(){
+                if (currentTyreSize < 80) {
+                    currentTyreSize += 10;
+                    tyreTop -= 5;
+                    $(".tyre").css({
+                        "width": currentTyreSize + "px",
+                        "height": currentTyreSize + "px",
+                        "top": tyreTop + "px"
+                    });
+                }
+            });
+
+            $("#btn-tyre-dec").click(function(){
+                if (currentTyreSize > 20) {
+                    currentTyreSize -= 10;
+                    tyreTop += 5;
+                    $(".tyre").css({
+                        "width": currentTyreSize + "px",
+                        "height": currentTyreSize + "px",
+                        "top": tyreTop + "px"
+                    });
+                }
+            });
+
+            $("#btn-reset").click(function(){
+                currentTyreSize = defaultTyreSize;
+                tyreTop = 90;
+                $("#glass").css("background-color", "#0033cc");
+                $("#body").css("background-color", "#33cc33");
+                $(".tyre").css({
+                    "width": currentTyreSize + "px",
+                    "height": currentTyreSize + "px",
+                    "top": tyreTop + "px"
+                });
+            });
+        });
+    </script>
+</body>
+</html>

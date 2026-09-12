@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Calculator App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .header { background-color: black; color: white; padding: 10px; margin: 20px auto; width: 60%; font-weight: bold; }
+        .input-group { margin: 15px; }
+        .input-group input { padding: 5px; width: 100px; text-align: center; }
+        .percentages { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        .percentages div { display: flex; flex-direction: column; align-items: center; }
+        .percentages label { font-size: 14px; margin-bottom: 5px; }
+        .percentages input { width: 50px; text-align: center; padding: 3px; }
+        .btn-evaluate { background-color: blue; color: white; padding: 10px 20px; border: none; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        .results { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .result-box { width: 100px; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; font-size: 12px; }
+        #res-rent { background-color: blue; }
+        #res-acc { background-color: green; }
+        #res-emerg { background-color: darkblue; }
+        #res-save { background-color: deeppink; }
+        
+        .nav-link { display: inline-block; margin-top: 50px; text-decoration: none; color: #007bff; }
+        .nav-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="header">Budget Calculator App</div>
+    
+    <div class="input-group">
+        <p>Enter Amount that you want to Manage</p>
+        <input type="number" id="totalAmount" value="15000">
+    </div>
+
+    <p>How would you like to divide your money?</p>
+    <div class="percentages">
+        <div>
+            <label>Room Rent(%):</label>
+            <input type="number" id="p-rent" value="50">
+        </div>
+        <div>
+            <label>Accessories(%):</label>
+            <input type="number" id="p-acc" value="20">
+        </div>
+        <div>
+            <label>Emergency(%):</label>
+            <input type="number" id="p-emerg" value="20">
+        </div>
+        <div>
+            <label>Saving(%):</label>
+            <input type="number" id="p-save" value="10">
+        </div>
+    </div>
+
+    <button class="btn-evaluate" id="evaluateBtn">Evaluate My Money</button>
+
+    <div class="results" id="result-container" style="display: none;">
+        <div class="result-box" id="res-rent">
+            <div>Room Rent</div>
+            <div class="val">Rs.0</div>
+        </div>
+        <div class="result-box" id="res-acc">
+            <div>Accessories</div>
+            <div class="val">Rs.0</div>
+        </div>
+        <div class="result-box" id="res-emerg">
+            <div>Emergency</div>
+            <div class="val">Rs.0</div>
+        </div>
+        <div class="result-box" id="res-save">
+            <div>Saving</div>
+            <div class="val">Rs.0</div>
+        </div>
+    </div>
+    
+    <br>
+    <a href="Lab-Experiment 7.html" class="nav-link">&larr; Back to Experiment Index</a>
+
+    <script>
+        $(document).ready(function(){
+            $("#evaluateBtn").click(function(){
+                let amount = parseFloat($("#totalAmount").val());
+                let pRent = parseFloat($("#p-rent").val()) || 0;
+                let pAcc = parseFloat($("#p-acc").val()) || 0;
+                let pEmerg = parseFloat($("#p-emerg").val()) || 0;
+                let pSave = parseFloat($("#p-save").val()) || 0;
+
+                let totalPercent = pRent + pAcc + pEmerg + pSave;
+
+                if(totalPercent !== 100) {
+                    alert("The total percentage must equal 100%. Currently it is " + totalPercent + "%. Cannot divide money!");
+                    $("#result-container").hide();
+                    return;
+                }
+                
+                if (isNaN(amount) || amount <= 0) {
+                    alert("Please enter a valid amount.");
+                    $("#result-container").hide();
+                    return;
+                }
+
+                $("#res-rent .val").text("Rs." + (amount * pRent / 100).toFixed(0));
+                $("#res-acc .val").text("Rs." + (amount * pAcc / 100).toFixed(0));
+                $("#res-emerg .val").text("Rs." + (amount * pEmerg / 100).toFixed(0));
+                $("#res-save .val").text("Rs." + (amount * pSave / 100).toFixed(0));
+
+                $("#result-container").css("display", "flex");
+            });
+        });
+    </script>
+</body>
+</html>

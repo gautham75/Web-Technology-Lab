@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Order Calculation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .header { background-color: #aa0000; color: white; padding: 10px; font-weight: bold; font-size: 20px; width: 60%; margin: 0 auto; }
+        .cakes-container { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        .cake { display: flex; flex-direction: column; align-items: center; width: 150px; }
+        .cake img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; }
+        .cake p { font-size: 11px; margin-top: 10px; font-weight: bold; color: #333; }
+        
+        .order-section { margin: 30px auto; width: 400px; text-align: left; }
+        .order-section h2 { text-align: center; color: blue; font-size: 18px; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; color: blue; font-size: 13px; font-weight: bold; }
+        .input-group input { width: 100%; padding: 5px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; }
+        
+        .place-order { background-color: #007bff; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; font-size: 14px; margin-top: 10px; }
+        
+        .bill-section { margin-top: 30px; display: none; }
+        .bill-section h3 { color: green; font-size: 16px; margin-bottom: 10px; }
+        .total-price-bar { display: inline-flex; align-items: center; font-size: 18px; font-weight: bold; border-bottom: 2px solid blue; }
+        .total-label { background-color: #4CAF50; color: white; padding: 5px 20px; }
+        .total-val { padding: 5px 20px; color: red; font-size: 20px; }
+        
+        .nav-link { display: inline-block; margin-top: 50px; text-decoration: none; color: #007bff; }
+        .nav-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="header">CAKE SHOP</div>
+
+    <div class="cakes-container">
+        <div class="cake">
+            <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=150&q=80" alt="Color Cake">
+            <p>Color Cake - Rs. 300</p>
+        </div>
+        <div class="cake">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=150&q=80" alt="Brown Cake">
+            <p>Brown Cake - Rs. 200</p>
+        </div>
+        <div class="cake">
+            <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=150&q=80" alt="Milky Cake">
+            <p>Milky Cake - Rs. 250</p>
+        </div>
+        <div class="cake">
+            <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=150&q=80" alt="Black Forest Cake">
+            <p>Black Forest Cake - Rs. 350</p>
+        </div>
+    </div>
+
+    <div class="order-section">
+        <h2>Order Cake</h2>
+        <div class="input-group">
+            <label>Color Cake(Quantity)</label>
+            <input type="number" id="qty-color" value="2" min="0">
+        </div>
+        <div class="input-group">
+            <label>Brown Cake(Quantity)</label>
+            <input type="number" id="qty-brown" value="1" min="0">
+        </div>
+        <div class="input-group">
+            <label>Milky Cake(Quantity)</label>
+            <input type="number" id="qty-milky" value="2" min="0">
+        </div>
+        <div class="input-group">
+            <label>Black Forest Cake(Quantity)</label>
+            <input type="number" id="qty-black" value="1" min="0">
+        </div>
+        <button class="place-order" id="btn-order">Place Order</button>
+    </div>
+
+    <div class="bill-section" id="bill-container">
+        <h3>Purchase Order Bill!!</h3>
+        <div class="total-price-bar">
+            <div class="total-label">Total Price</div>
+            <div class="total-val" id="total-val">Rs.1650</div>
+        </div>
+    </div>
+    
+    <br>
+    <a href="Lab-Experiment 7.html" class="nav-link">&larr; Back to Experiment Index</a>
+
+    <script>
+        $(document).ready(function(){
+            $("#btn-order").click(function(){
+                let qColor = parseInt($("#qty-color").val()) || 0;
+                let qBrown = parseInt($("#qty-brown").val()) || 0;
+                let qMilky = parseInt($("#qty-milky").val()) || 0;
+                let qBlack = parseInt($("#qty-black").val()) || 0;
+
+                let total = (qColor * 300) + (qBrown * 200) + (qMilky * 250) + (qBlack * 350);
+
+                $("#total-val").text("Rs." + total);
+                $("#bill-container").show();
+            });
+        });
+    </script>
+</body>
+</html>
