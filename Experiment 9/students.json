@@ -1,0 +1,21 @@
+[
+  { "rollno": 201, "name": "Arun", "department": "CSE", "year": 3, "marks": 90, "city": "Chennai", "status": "Active" },
+  { "rollno": 202, "name": "Priya", "department": "ECE", "year": 3, "marks": 92, "city": "Coimbatore" },
+  { "rollno": 203, "name": "Karthik", "department": "CSE", "year": 2, "marks": 78, "city": "Salem", "status": "Active" },
+  { "rollno": 204, "name": "Meena", "department": "EEE", "year": 3, "marks": 88, "city": "Madurai" },
+  { "rollno": 205, "name": "Suresh", "department": "MECH", "year": 4, "marks": 75, "city": "Trichy", "status": "Active" },
+  { "rollno": 206, "name": "Divya", "department": "CSE", "year": 2, "marks": 85, "city": "Chennai", "status": "Active" },
+  { "rollno": 207, "name": "Vignesh", "department": "IT", "year": 3, "marks": 95, "city": "Coimbatore", "status": "Active" },
+  { "rollno": 208, "name": "Ananya", "department": "ECE", "year": 1, "marks": 82, "city": "Bangalore" },
+  { "rollno": 209, "name": "Rahul", "department": "CSE", "year": 4, "marks": 70, "city": "Hyderabad", "status": "Active" },
+  { "rollno": 210, "name": "Sneha", "department": "AIDS", "year": 2, "marks": 91, "city": "Chennai", "status": "Active" },
+  { "rollno": 211, "name": "Gokul", "department": "IT", "year": 3, "marks": 84, "city": "Madurai", "status": "Active" },
+  { "rollno": 212, "name": "Harini", "department": "CSE", "year": 3, "marks": 89, "city": "Salem", "status": "Active" },
+  { "rollno": 213, "name": "Sanjay", "department": "MECH", "year": 2, "marks": 68, "city": "Tirunelveli" },
+  { "rollno": 214, "name": "Pooja", "department": "ECE", "year": 4, "marks": 93, "city": "Coimbatore", "status": "Active" },
+  { "rollno": 215, "name": "Naveen", "department": "EEE", "year": 1, "marks": 76, "city": "Chennai" },
+  { "rollno": 216, "name": "Keerthi", "department": "AIDS", "year": 3, "marks": 87, "city": "Trichy", "status": "Active" },
+  { "rollno": 217, "name": "Vijay", "department": "CSE", "year": 4, "marks": 96, "city": "Chennai", "status": "Active" },
+  { "rollno": 218, "name": "Rithika", "department": "IT", "year": 2, "marks": 81, "city": "Salem", "status": "Active" },
+  { "rollno": 219, "name": "Manoj", "department": "ECE", "year": 3, "marks": 86, "city": "Madurai", "status": "Active" }
+]

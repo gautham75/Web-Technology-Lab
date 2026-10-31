@@ -9,7 +9,7 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)](https://gautham75.github.io/Web-Technology-Lab/)
 </div>
-A comprehensive collection of **Web Technology Laboratory** experiments and exercises demonstrating modern HTML5 semantics, responsive layouts, advanced CSS3 styling techniques, interactive forms, jQuery, ReactJS frontend components, and Node.js + MongoDB backend development.
+A comprehensive collection of **Web Technology Laboratory** experiments and exercises demonstrating modern HTML5 semantics, responsive layouts, advanced CSS3 styling techniques, interactive forms, jQuery, ReactJS frontend components, MongoDB Shell commands & Compass GUI operations, and Node.js + MongoDB backend development.
 
 ---
 
@@ -32,6 +32,7 @@ You can view the published website and live lab experiments hosted on GitHub Pag
 | **06** | **Lab Exercise 6** | Digital Clock, Interactive DOM Elements & String/Math Operations |
 | **07** | **Lab Experiment 7** | Working with jQuery: Budget Calculator, Cake Order Calculation & Car Body Workshop |
 | **08** | **Lab Experiment 8** | Modern UI Design using ReactJS: Reusable Components, JSX, Props, State Hooks, Controlled Forms, Responsive CSS & Dark Mode |
+| **09** | **Lab Experiment 9** | Working with MongoDB & MongoDB Compass: Shell Commands (`mongosh`), CRUD Operations, Query Filters, Sorting, Indexing & Aggregation Pipelines |
 | **10** | **Lab Experiment 10** | HTML Form Request Handling using Node.js and MongoDB: Server-Side Processing, Data Validation, MongoDB Persistence & Record Display |
 
 ---
@@ -52,13 +53,21 @@ Web-Technology-Lab/
 │   ├── Experiment8_2/               # Additional Challenge (Full Featured Student Dashboard)
 │   ├── README.md                    # React Project Documentation
 │   └── WT LAB Experiment 8 1158.docx# Lab Record Document
+├── Experiment 9/                    # Experiment 09 MongoDB & Compass Project
+│   ├── queries.mongodb.js           # Full mongosh script (CRUD, Filters, Aggregations)
+│   ├── students.json                # Complete dataset with 19 student documents
+│   ├── mongodb_compass_experiment9.png # MongoDB Compass GUI Verification Screenshot
+│   ├── README.md                    # Detailed Query Guide & Documentation
+│   └── WT LAB Experiment 9 1158.docx# Lab Record Document
 ├── LAB experiments/
 │   ├── Lab-Experiment 10.html       # Experiment 10 Interactive Portal & Demo
+│   ├── Lab-Experiment 9.html        # Experiment 09 Interactive Portal & Compass View
 │   ├── Lab-Experiment 8.html        # Experiment 08 Overview Portal
 │   ├── Lab-Experiment 8.1.html      # Experiment 8.1 Interactive Web Version
 │   ├── Lab-Experiment 8.2.html      # Experiment 8.2 Interactive Web Version
 │   ├── WT LAB Experiment 10 1158.docx# Word Lab Record Document (Ex 10)
-│   ├── WT LAB Experiment 8 1158.docx# Word Lab Record Document (Ex 08)
+│   ├── WT LAB Experiment 9 1158.docx # Word Lab Record Document (Ex 09)
+│   ├── WT LAB Experiment 8 1158.docx # Word Lab Record Document (Ex 08)
 │   ├── Lab-Experiment 7.html        # Experiment 07 jQuery Portal & Exercises
 │   ├── Lab-Excercise 6.html         # Experiment 06 DOM & JS Exercises
 │   ├── Lab-Excercise 4.html         # Experiment 04 Advanced CSS3 Design
@@ -99,6 +108,17 @@ Simply open `index.html` or any file inside the `LAB experiments/` folder in you
 cd "Experiment 8/Experiment8_1"   # Or Experiment8_2 for the extended dashboard
 npm install
 npm run dev
+```
+
+### Running Experiment 9 (MongoDB & Compass)
+```bash
+# 1. Start MongoDB Daemon
+mongod
+
+# 2. Execute Shell Commands in mongosh
+mongosh collegeDB "Experiment 9/queries.mongodb.js"
+
+# 3. Or import "Experiment 9/students.json" into MongoDB Compass (collegeDB.students)
 ```
 
 ### Running Experiment 10 (Node.js & MongoDB)

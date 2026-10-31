@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab Experiment 9 - MongoDB Shell & Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f1a;
+      --surface: #141828;
+      --card: #1a1f35;
+      --card-hover: #1f2640;
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #6c63ff;
+      --accent2: #00d4aa;
+      --mongo-green: #10aa50;
+      --mongo-light: #34d399;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 20px 60px;
+      position: relative;
+    }
+
+    /* Ambient glow */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    body::before {
+      width: 500px; height: 500px;
+      background: rgba(16, 170, 80, 0.12);
+      top: -100px; left: -100px;
+    }
+    body::after {
+      width: 450px; height: 450px;
+      background: rgba(108, 99, 255, 0.1);
+      bottom: -80px; right: -80px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .badge-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(108, 99, 255, 0.15);
+      border: 1px solid rgba(108, 99, 255, 0.35);
+      color: #a59dff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+    }
+
+    .badge-mongo {
+      background: rgba(16, 170, 80, 0.15);
+      border-color: rgba(16, 170, 80, 0.4);
+      color: var(--mongo-light);
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #34d399, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .meta-bar {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item span {
+      color: var(--mongo-light);
+      font-weight: 600;
+    }
+
+    /* Tabs */
+    .tabs-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 25px;
+      background: rgba(20, 24, 40, 0.8);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn.active {
+      background: var(--mongo-green);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(16, 170, 80, 0.35);
+    }
+
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card Panels */
+    .card-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      margin-bottom: 25px;
+    }
+
+    /* Compass Screenshot Viewer */
+    .compass-viewer {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #080a14;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      margin-top: 15px;
+    }
+
+    .compass-viewer img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .compass-viewer:hover img {
+      transform: scale(1.01);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin: 20px 0 10px;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-box .num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--mongo-light);
+    }
+
+    .stat-box .label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    /* Interactive Query Playground */
+    .filter-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .control-group label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .control-group select, .control-group input {
+      width: 100%;
+      background: #0d1122;
+      border: 1px solid var(--border);
+      color: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .control-group select:focus, .control-group input:focus {
+      border-color: var(--mongo-green);
+    }
+
+    .query-preview {
+      background: #080a14;
+      border: 1px solid rgba(16, 170, 80, 0.3);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--mongo-light);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Student Table */
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .doc-table th, .doc-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-table th {
+      background: rgba(255, 255, 255, 0.03);
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge-dept {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .dept-CSE { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+    .dept-ECE { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+    .dept-EEE { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .dept-MECH { background: rgba(100, 116, 139, 0.3); color: #cbd5e1; }
+    .dept-IT { background: rgba(14, 165, 233, 0.2); color: #38bdf8; }
+    .dept-AIDS { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+    .status-active {
+      color: #34d399;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Code Blocks */
+    .code-container {
+      position: relative;
+      margin-top: 15px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .code-header {
+      background: #0f1220;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--mongo-green);
+      color: white;
+    }
+
+    pre {
+      background: #080a14;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.86rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      max-height: 480px;
+    }
+
+    /* Aggregation Cards */
+    .agg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 15px;
+    }
+
+    .agg-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .agg-dept {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .agg-metric {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.86rem;
+      margin-bottom: 6px;
+      color: var(--muted);
+    }
+
+    .agg-metric strong {
+      color: #38bdf8;
+    }
+
+    /* Footer Links */
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .back-link, .repo-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover, .repo-link:hover {
+      color: var(--mongo-light);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header Section -->
+    <header class="header">
+      <div class="badge-wrap">
+        <span class="badge">Experiment 09</span>
+        <span class="badge badge-mongo">MongoDB Compass GUI</span>
+        <span class="badge">mongosh Shell Commands</span>
+      </div>
+      <h1>Working with MongoDB & Compass</h1>
+      <p class="subtitle">
+        Hands-on database operations using MongoDB Shell and MongoDB Compass: collection creation, document insertion, filtering with comparison/logical operators, sorting, updates, deletion, indexing, and aggregation pipelines.
+      </p>
+
+      <div class="meta-bar">
+        <div class="meta-item">Student: <span>Gautham Manoj</span></div>
+        <div class="meta-item">Reg No: <span>URK24CS1158</span></div>
+        <div class="meta-item">Database: <span>collegeDB</span></div>
+        <div class="meta-item">Collection: <span>students (19 docs)</span></div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('compass')">🖥️ MongoDB Compass GUI</button>
+      <button class="tab-btn" onclick="switchTab('playground')">🔍 Interactive Query Simulator</button>
+      <button class="tab-btn" onclick="switchTab('commands')">📜 Shell Commands Reference</button>
+      <button class="tab-btn" onclick="switchTab('aggregation')">📊 Aggregations & Analytics</button>
+    </div>
+
+    <!-- Tab 1: MongoDB Compass Screenshot & Overview -->
+    <div id="tab-compass" class="tab-pane active">
+      <div class="card-panel">
+        <h3 style="color: #f8fafc; margin-bottom: 6px;">MongoDB Compass Visual Inspection</h3>
+        <p style="color: var(--muted); font-size: 0.92rem;">
+          Verified graphical view of the <code>collegeDB.students</code> collection running on <code>localhost:27017</code>.
+        </p>
+
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="num">19</div>
+            <div class="label">Total Documents</div>
+          </div>
+          <div class="stat-box">
+            <div class="num">6</div>
+            <div class="label">Departments</div>
+          </div>
+          <div class="stat-box">
+            <div class="num">96</div>
+            <div class="label">Top Marks</div>
+          </div>
+          <div class="stat-box">
+            <div class="num">85.3</div>
+            <div class="label">Avg Score</div>
+          </div>
+        </div>
+
+        <div class="compass-viewer">
+          <img src="images/mongodb_compass_experiment9.png" alt="MongoDB Compass students collection" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Interactive Query Simulator -->
+    <div id="tab-playground" class="tab-pane">
+      <div class="card-panel">
+        <h3 style="color: #f8fafc; margin-bottom: 6px;">Interactive Query Playground</h3>
+        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 20px;">
+          Filter the 19 student documents stored in <code>collegeDB.students</code> using MongoDB operators.
+        </p>
+
+        <div class="filter-controls">
+          <div class="control-group">
+            <label for="deptSelect">Filter by Department</label>
+            <select id="deptSelect" onchange="runQuery()">
+              <option value="ALL">All Departments ($in)</option>
+              <option value="CSE">CSE</option>
+              <option value="ECE">ECE</option>
+              <option value="EEE">EEE</option>
+              <option value="MECH">MECH</option>
+              <option value="IT">IT</option>
+              <option value="AIDS">AIDS</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="marksRange">Min Marks ($gte): <span id="marksVal" style="color: var(--mongo-light); font-weight: bold;">70</span></label>
+            <input type="range" id="marksRange" min="65" max="95" value="70" step="5" oninput="updateMarks(this.value)" />
+          </div>
+
+          <div class="control-group">
+            <label for="statusSelect">Status Condition</label>
+            <select id="statusSelect" onchange="runQuery()">
+              <option value="ALL">All Records</option>
+              <option value="Active">Active Only ({ status: "Active" })</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="sortSelect">Sort Order</label>
+            <select id="sortSelect" onchange="runQuery()">
+              <option value="marks-desc">Marks: High to Low (.sort({ marks: -1 }))</option>
+              <option value="marks-asc">Marks: Low to High (.sort({ marks: 1 }))</option>
+              <option value="rollno-asc">Roll No: Ascending (.sort({ rollno: 1 }))</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="query-preview">
+          <span>⚡ Query:</span>
+          <code id="activeQueryCode">db.students.find({ marks: { $gte: 70 } })</code>
+        </div>
+
+        <div class="table-responsive">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Year</th>
+                <th>Marks</th>
+                <th>City</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody">
+              <!-- Populated via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Shell Commands Reference -->
+    <div id="tab-commands" class="tab-pane">
+      <div class="card-panel">
+        <h3 style="color: #f8fafc; margin-bottom: 6px;">MongoDB Shell (mongosh) Reference</h3>
+        <p style="color: var(--muted); font-size: 0.92rem;">
+          Comprehensive script of all 30 laboratory commands covering CRUD, conditional searches, projections, and updates.
+        </p>
+
+        <div class="code-container">
+          <div class="code-header">
+            <span>Experiment 9/queries.mongodb.js</span>
+            <button class="copy-btn" onclick="copyCode('shellCode')">Copy Script</button>
+          </div>
+          <pre><code id="shellCode">// 1. Database and Collection Setup
+show dbs;
+use collegeDB;
+db.createCollection("students");
+show collections;
+
+// 2. Insert Documents
+db.students.insertOne({
+  rollno: 201,
+  name: "Arun",
+  department: "CSE",
+  year: 3,
+  marks: 90,
+  city: "Chennai",
+  status: "Active"
+});
+
+// 3. Query with Comparison Operators
+db.students.find({ marks: { $gt: 80 } });
+db.students.find({ marks: { $gte: 85 } });
+db.students.find({ marks: { $lt: 80 } });
+db.students.find({ department: { $in: ["CSE", "IT"] } });
+
+// 4. Logical Operators (AND / OR)
+db.students.find({ department: "CSE", marks: { $gt: 75 } });
+db.students.find({
+  $or: [
+    { department: "CSE" },
+    { department: "ECE" }
+  ]
+});
+
+// 5. Projection (Include only name and marks, omit _id)
+db.students.find({}, { name: 1, marks: 1, _id: 0 });
+
+// 6. Sorting, Limit, and Count
+db.students.find().sort({ marks: -1 }).limit(3);
+db.students.countDocuments({ department: "CSE" });
+
+// 7. Update Operations
+db.students.updateOne({ rollno: 201 }, { $set: { marks: 95 } });
+db.students.updateMany({ department: "CSE" }, { $set: { status: "Active" } });
+db.students.updateOne({ rollno: 203 }, { $inc: { marks: 5 } });
+
+// 8. Delete Operations
+db.students.deleteOne({ rollno: 213 });
+db.students.deleteMany({ marks: { $lt: 65 } });
+
+// 9. Distinct Values
+db.students.distinct("department");
+
+// 10. Aggregation: Department-wise Average Marks
+db.students.aggregate([
+  {
+    $group: {
+      _id: "$department",
+      studentCount: { $sum: 1 },
+      avgMarks: { $avg: "$marks" },
+      maxMarks: { $max: "$marks" }
+    }
+  },
+  { $sort: { avgMarks: -1 } }
+]);
+
+// 11. Indexes
+db.students.createIndex({ rollno: 1 }, { unique: true });
+db.students.getIndexes();</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Aggregation & Analytics -->
+    <div id="tab-aggregation" class="tab-pane">
+      <div class="card-panel">
+        <h3 style="color: #f8fafc; margin-bottom: 6px;">Department-wise Aggregation Pipeline Results</h3>
+        <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 20px;">
+          Computed via <code>db.students.aggregate([ { $group: { ... } }, { $sort: { avgMarks: -1 } } ])</code>
+        </p>
+
+        <div class="agg-grid" id="aggGrid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="footer-links">
+      <a href="../index.html" class="back-link">← Back to Lab Portal</a>
+      <span style="color: var(--border);">|</span>
+      <a href="https://github.com/gautham75/Web-Technology-Lab" target="_blank" rel="noopener" class="repo-link">View Source on GitHub ↗</a>
+      <span style="color: var(--border);">|</span>
+      <a href="WT%20LAB%20Experiment%209%201158.docx" class="repo-link">Download Lab Record (.docx) ⬇</a>
+    </div>
+
+  </div>
+
+  <script>
+    // Dataset of 19 student records from Compass
+    const studentsData = [
+      { rollno: 201, name: "Arun", department: "CSE", year: 3, marks: 90, city: "Chennai", status: "Active" },
+      { rollno: 202, name: "Priya", department: "ECE", year: 3, marks: 92, city: "Coimbatore", status: "Inactive" },
+      { rollno: 203, name: "Karthik", department: "CSE", year: 2, marks: 78, city: "Salem", status: "Active" },
+      { rollno: 204, name: "Meena", department: "EEE", year: 3, marks: 88, city: "Madurai", status: "Inactive" },
+      { rollno: 205, name: "Suresh", department: "MECH", year: 4, marks: 75, city: "Trichy", status: "Active" },
+      { rollno: 206, name: "Divya", department: "CSE", year: 2, marks: 85, city: "Chennai", status: "Active" },
+      { rollno: 207, name: "Vignesh", department: "IT", year: 3, marks: 95, city: "Coimbatore", status: "Active" },
+      { rollno: 208, name: "Ananya", department: "ECE", year: 1, marks: 82, city: "Bangalore", status: "Inactive" },
+      { rollno: 209, name: "Rahul", department: "CSE", year: 4, marks: 70, city: "Hyderabad", status: "Active" },
+      { rollno: 210, name: "Sneha", department: "AIDS", year: 2, marks: 91, city: "Chennai", status: "Active" },
+      { rollno: 211, name: "Gokul", department: "IT", year: 3, marks: 84, city: "Madurai", status: "Active" },
+      { rollno: 212, name: "Harini", department: "CSE", year: 3, marks: 89, city: "Salem", status: "Active" },
+      { rollno: 213, name: "Sanjay", department: "MECH", year: 2, marks: 68, city: "Tirunelveli", status: "Inactive" },
+      { rollno: 214, name: "Pooja", department: "ECE", year: 4, marks: 93, city: "Coimbatore", status: "Active" },
+      { rollno: 215, name: "Naveen", department: "EEE", year: 1, marks: 76, city: "Chennai", status: "Inactive" },
+      { rollno: 216, name: "Keerthi", department: "AIDS", year: 3, marks: 87, city: "Trichy", status: "Active" },
+      { rollno: 217, name: "Vijay", department: "CSE", year: 4, marks: 96, city: "Chennai", status: "Active" },
+      { rollno: 218, name: "Rithika", department: "IT", year: 2, marks: 81, city: "Salem", status: "Active" },
+      { rollno: 219, name: "Manoj", department: "ECE", year: 3, marks: 86, city: "Madurai", status: "Active" }
+    ];
+
+    // Tab switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+      const targetPane = document.getElementById('tab-' + tabId);
+      if (targetPane) targetPane.classList.add('active');
+
+      const clickedBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => 
+        b.getAttribute('onclick').includes(tabId)
+      );
+      if (clickedBtn) clickedBtn.classList.add('active');
+    }
+
+    function updateMarks(val) {
+      document.getElementById('marksVal').innerText = val;
+      runQuery();
+    }
+
+    function runQuery() {
+      const dept = document.getElementById('deptSelect').value;
+      const minMarks = parseInt(document.getElementById('marksRange').value, 10);
+      const status = document.getElementById('statusSelect').value;
+      const sort = document.getElementById('sortSelect').value;
+
+      // Filter
+      let filtered = studentsData.filter(s => {
+        if (dept !== 'ALL' && s.department !== dept) return false;
+        if (s.marks < minMarks) return false;
+        if (status === 'Active' && s.status !== 'Active') return false;
+        return true;
+      });
+
+      // Sort
+      if (sort === 'marks-desc') filtered.sort((a, b) => b.marks - a.marks);
+      else if (sort === 'marks-asc') filtered.sort((a, b) => a.marks - b.marks);
+      else if (sort === 'rollno-asc') filtered.sort((a, b) => a.rollno - b.rollno);
+
+      // Update query string
+      let filterObj = {};
+      if (dept !== 'ALL') filterObj.department = dept;
+      filterObj.marks = { "$gte": minMarks };
+      if (status === 'Active') filterObj.status = 'Active';
+
+      let queryStr = `db.students.find(${JSON.stringify(filterObj)})`;
+      if (sort === 'marks-desc') queryStr += '.sort({ marks: -1 })';
+      else if (sort === 'marks-asc') queryStr += '.sort({ marks: 1 })';
+      else queryStr += '.sort({ rollno: 1 })';
+
+      document.getElementById('activeQueryCode').innerText = queryStr;
+
+      // Render table
+      const tbody = document.getElementById('studentTableBody');
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 25px; color:#94a3b8;">No matching documents found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(s => `
+        <tr>
+          <td><strong style="color: #cbd5e1;">${s.rollno}</strong></td>
+          <td style="color: #f8fafc; font-weight: 500;">${s.name}</td>
+          <td><span class="badge-dept dept-${s.department}">${s.department}</span></td>
+          <td>Year ${s.year}</td>
+          <td><strong style="color: ${s.marks >= 85 ? '#34d399' : '#fbbf24'};">${s.marks}</strong></td>
+          <td style="color: #94a3b8;">${s.city}</td>
+          <td>${s.status === 'Active' ? '<span class="status-active">● Active</span>' : '<span style="color:#64748b;">—</span>'}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Populate Aggregation Grid
+    function renderAggregations() {
+      const groups = {};
+      studentsData.forEach(s => {
+        if (!groups[s.department]) groups[s.department] = { count: 0, totalMarks: 0, max: 0, min: 100 };
+        groups[s.department].count += 1;
+        groups[s.department].totalMarks += s.marks;
+        if (s.marks > groups[s.department].max) groups[s.department].max = s.marks;
+        if (s.marks < groups[s.department].min) groups[s.department].min = s.marks;
+      });
+
+      const aggList = Object.keys(groups).map(dept => ({
+        dept,
+        count: groups[dept].count,
+        avg: (groups[dept].totalMarks / groups[dept].count).toFixed(1),
+        max: groups[dept].max,
+        min: groups[dept].min
+      })).sort((a, b) => b.avg - a.avg);
+
+      const grid = document.getElementById('aggGrid');
+      grid.innerHTML = aggList.map(a => `
+        <div class="agg-card">
+          <div class="agg-dept">
+            <span>${a.dept}</span>
+            <span class="badge-dept dept-${a.dept}">${a.count} Students</span>
+          </div>
+          <div class="agg-metric"><span>Average Marks:</span> <strong>${a.avg}</strong></div>
+          <div class="agg-metric"><span>Maximum Marks:</span> <strong>${a.max}</strong></div>
+          <div class="agg-metric"><span>Minimum Marks:</span> <strong>${a.min}</strong></div>
+        </div>
+      `).join('');
+    }
+
+    function copyCode(id) {
+      const code = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('Script copied to clipboard!');
+      });
+    }
+
+    // Initialize on load
+    runQuery();
+    renderAggregations();
+  </script>
+</body>
+</html>
