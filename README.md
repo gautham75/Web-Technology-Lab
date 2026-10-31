@@ -4,9 +4,12 @@
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)](https://gautham75.github.io/Web-Technology-Lab/)
 </div>
-A comprehensive collection of **Web Technology Laboratory** experiments and exercises demonstrating modern HTML5 semantics, responsive layouts, advanced CSS3 styling techniques, interactive forms, and web design principles.
+A comprehensive collection of **Web Technology Laboratory** experiments and exercises demonstrating modern HTML5 semantics, responsive layouts, advanced CSS3 styling techniques, interactive forms, jQuery, ReactJS frontend components, and Node.js + MongoDB backend development.
 
 ---
 
@@ -25,6 +28,11 @@ You can view the published website and live lab experiments hosted on GitHub Pag
 | **02** | **Lab Exercise 2** | HTML5 Semantic Elements, Media Integration (Audio, Video), and Forms |
 | **03** | **Lab Exercise 3** | Responsive Layouts, CSS Grid & Flexbox, Custom Navigation & Media Queries |
 | **04** | **Lab Exercise 4** | Advanced CSS3: Border Radius, Multiple Backgrounds, Gradients, Pseudo-Classes (`:focus`, `:required`, `:valid`, `:invalid`, `:nth-child`), and Sibling Selectors |
+| **05** | **Lab Exercise 5** | DOM Manipulation & JavaScript Events |
+| **06** | **Lab Exercise 6** | Digital Clock, Interactive DOM Elements & String/Math Operations |
+| **07** | **Lab Experiment 7** | Working with jQuery: Budget Calculator, Cake Order Calculation & Car Body Workshop |
+| **08** | **Lab Experiment 8** | Modern UI Design using ReactJS: Reusable Components, JSX, Props, State Hooks, Controlled Forms, Responsive CSS & Dark Mode |
+| **10** | **Lab Experiment 10** | HTML Form Request Handling using Node.js and MongoDB: Server-Side Processing, Data Validation, MongoDB Persistence & Record Display |
 
 ---
 
@@ -34,12 +42,29 @@ You can view the published website and live lab experiments hosted on GitHub Pag
 Web-Technology-Lab/
 ├── index.html                       # Main Laboratory Portal & Interactive Dashboard
 ├── README.md                        # Project Documentation
+├── Ex10/                            # Experiment 10 Node.js & MongoDB Server Project
+│   ├── app.js                       # HTTP Server & MongoDB Controller
+│   ├── home.html                    # Registration Form Frontend
+│   ├── package.json                 # Project Metadata & MongoDB Driver
+│   └── README.md                    # Setup & Execution Instructions
+├── Experiment 8/                    # Experiment 08 ReactJS Master Project Folder
+│   ├── Experiment8_1/               # Student Lab Activity (Vite React Application)
+│   ├── Experiment8_2/               # Additional Challenge (Full Featured Student Dashboard)
+│   ├── README.md                    # React Project Documentation
+│   └── WT LAB Experiment 8 1158.docx# Lab Record Document
 ├── LAB experiments/
-│   ├── Lab-Experiment 1.html        # Experiment 01 Code
-│   ├── Lab-Excercise 2.html         # Experiment 02 Code
-│   ├── Lab-Excercise 3.html         # Experiment 03 Code
-│   ├── Lab-Excercise 4.html         # Experiment 04 Code (Advanced CSS3 Design)
-│   ├── LAB1.html - LAB6.html        # Core Practice Modules
+│   ├── Lab-Experiment 10.html       # Experiment 10 Interactive Portal & Demo
+│   ├── Lab-Experiment 8.html        # Experiment 08 Overview Portal
+│   ├── Lab-Experiment 8.1.html      # Experiment 8.1 Interactive Web Version
+│   ├── Lab-Experiment 8.2.html      # Experiment 8.2 Interactive Web Version
+│   ├── WT LAB Experiment 10 1158.docx# Word Lab Record Document (Ex 10)
+│   ├── WT LAB Experiment 8 1158.docx# Word Lab Record Document (Ex 08)
+│   ├── Lab-Experiment 7.html        # Experiment 07 jQuery Portal & Exercises
+│   ├── Lab-Excercise 6.html         # Experiment 06 DOM & JS Exercises
+│   ├── Lab-Excercise 4.html         # Experiment 04 Advanced CSS3 Design
+│   ├── Lab-Excercise 3.html         # Experiment 03 Responsive Layouts
+│   ├── Lab-Excercise 2.html         # Experiment 02 HTML5 Media & Forms
+│   ├── Lab-Experiment 1.html        # Experiment 01 Basic HTML Structure
 │   └── images/                      # Image Assets & Textures
 └── Trial/
     ├── Basic Program of HTML.html   # Basic HTML Experiments
@@ -68,6 +93,21 @@ cd Web-Technology-Lab
 
 ### Local Preview
 Simply open `index.html` or any file inside the `LAB experiments/` folder in your preferred web browser.
+
+### Running Experiment 8 (ReactJS)
+```bash
+cd "Experiment 8/Experiment8_1"   # Or Experiment8_2 for the extended dashboard
+npm install
+npm run dev
+```
+
+### Running Experiment 10 (Node.js & MongoDB)
+```bash
+cd Ex10
+npm install
+mongod           # Ensure MongoDB daemon is running on port 27017
+node app.js      # Server starts on http://localhost:7000
+```
 
 ---
 

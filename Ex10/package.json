@@ -1,0 +1,12 @@
+{
+  "name": "registration-app",
+  "version": "1.0.0",
+  "description": "User Registration using Node.js and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.8.0"
+  }
+}

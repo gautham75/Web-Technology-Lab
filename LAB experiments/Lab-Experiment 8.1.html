@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>experiment8</title>
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- Babel Standalone for in-browser JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .app {
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --text: #222222;
+      --muted: #666666;
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --border: #cccccc;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .app.dark {
+      --bg: #111827;
+      --surface: #1f2937;
+      --text: #ffffff;
+      --muted: #d1d5db;
+      --border: #4b5563;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: var(--surface);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .btn {
+      border: none;
+      background: var(--primary);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .dashboard {
+      padding: 40px;
+    }
+
+    .welcome {
+      margin-bottom: 30px;
+    }
+
+    .welcome h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .course-section {
+      margin-top: 40px;
+    }
+
+    .course-section h2 {
+      margin-bottom: 20px;
+    }
+
+    .course-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .course-item {
+      background: var(--surface);
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .task-section {
+      margin-top: 40px;
+    }
+
+    .task-section h2 {
+      margin-bottom: 15px;
+    }
+
+    .task-form {
+      display: flex;
+      gap: 10px;
+    }
+
+    .task-form input {
+      padding: 12px;
+      width: 280px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .task-list {
+      list-style: none;
+      margin-top: 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .task-item {
+      background: var(--surface);
+      padding: 14px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .bottom-bar {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .bottom-bar a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .bottom-bar a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px 20px;
+      }
+
+      .dashboard {
+        padding: 20px;
+      }
+
+      .cards,
+      .course-list {
+        grid-template-columns: 1fr;
+      }
+
+      .task-form {
+        flex-direction: column;
+      }
+
+      .task-form input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function Navbar({ darkMode, toggleTheme }) {
+      return (
+        <nav className="navbar">
+          <h2>EduDashboard URK24CS1158</h2>
+
+          <div className="nav-links">
+            <a href="#home">Home</a>
+            <a href="#courses">Courses</a>
+            <a href="#tasks">Tasks</a>
+            <a href="#profile">Profile</a>
+          </div>
+
+          <button className="btn" onClick={toggleTheme}>
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
+        </nav>
+      );
+    }
+
+    function StatCard({ title, value }) {
+      return (
+        <div className="card">
+          <h3>{title}</h3>
+          <p>{value}</p>
+        </div>
+      );
+    }
+
+    function CourseList({ courses }) {
+      return (
+        <section className="course-section" id="courses">
+          <h2>My Courses</h2>
+          <div className="course-list">
+            {courses.map((course, index) => (
+              <div className="course-item" key={index}>
+                {course}
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function TaskSection({ tasks, onAddTask }) {
+      const [task, setTask] = useState("");
+
+      const handleAdd = () => {
+        if (task.trim() === "") return;
+        onAddTask(task.trim());
+        setTask("");
+      };
+
+      return (
+        <section className="task-section" id="tasks">
+          <h2>Add Task</h2>
+
+          <div className="task-form">
+            <input
+              type="text"
+              placeholder="Enter a task"
+              value={task}
+              onChange={(event) => setTask(event.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") handleAdd(); }}
+            />
+            <button className="btn" onClick={handleAdd}>Add</button>
+          </div>
+
+          <ul className="task-list">
+            {tasks.map((item, index) => (
+              <li className="task-item" key={index}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      );
+    }
+
+    function App() {
+      const [darkMode, setDarkMode] = useState(false);
+      const [tasks, setTasks] = useState([]);
+
+      const courses = [
+        "Web Technology",
+        "Database Management",
+        "Machine Learning",
+        "Computer Networks",
+      ];
+
+      const addTask = (newTask) => {
+        setTasks([...tasks, newTask]);
+      };
+
+      return (
+        <div className={darkMode ? "app dark" : "app"}>
+          <Navbar darkMode={darkMode} toggleTheme={() => setDarkMode(!darkMode)} />
+
+          <main className="dashboard" id="home">
+            <section className="welcome">
+              <h1>Welcome URK24CS1158!!!</h1>
+              <p>Here is your academic overview.</p>
+            </section>
+
+            <section className="cards">
+              <StatCard title="Courses" value="6" />
+              <StatCard title="Assignments" value="12" />
+              <StatCard title="Attendance" value="92%" />
+              <StatCard title="CGPA" value="8.7" />
+            </section>
+
+            <CourseList courses={courses} />
+            <TaskSection tasks={tasks} onAddTask={addTask} />
+
+            <div className="bottom-bar">
+              <span>Experiment 8.1: Student Lab Activity</span>
+              <a href="Lab-Experiment 8.html">← Back to Overview</a>
+            </div>
+          </main>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

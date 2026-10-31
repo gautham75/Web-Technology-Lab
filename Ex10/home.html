@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Registration Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: #ffffff;
+      max-width: 550px;
+      width: 100%;
+      padding: 35px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    h1 {
+      color: #0b57d0;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+
+    .required-star {
+      color: #dc2626;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #0b57d0;
+      box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.15);
+    }
+
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .radio-label,
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #0b57d0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0842a0;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>User Registration Form</h1>
+
+    <form id="regForm" action="/server" method="POST">
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name<span class="required-star">*</span></label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          placeholder="e.g. John David"
+          required 
+          pattern="[A-Za-z\s]{2,50}" 
+          title="Enter a valid name (letters and spaces only, 2-50 characters)" 
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password<span class="required-star">*</span></label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          placeholder="Enter password"
+          required 
+          minlength="6" 
+          title="Password must be at least 6 characters long" 
+        />
+      </div>
+
+      <!-- Age -->
+      <div class="form-group">
+        <label for="age">Age<span class="required-star">*</span></label>
+        <input 
+          type="number" 
+          id="age" 
+          name="age" 
+          placeholder="e.g. 30"
+          required 
+          min="1" 
+          max="120" 
+          title="Enter a valid age between 1 and 120" 
+        />
+      </div>
+
+      <!-- Mobile Number -->
+      <div class="form-group">
+        <label for="mobile">Mobile Number<span class="required-star">*</span></label>
+        <input 
+          type="tel" 
+          id="mobile" 
+          name="mobile" 
+          placeholder="e.g. 9923457891"
+          required 
+          pattern="[0-9]{10}" 
+          title="Enter a valid 10-digit mobile number" 
+        />
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email<span class="required-star">*</span></label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="e.g. johndavid@gmail.com"
+          required 
+          title="Enter a valid email address" 
+        />
+      </div>
+
+      <!-- Gender -->
+      <div class="form-group">
+        <label>Gender<span class="required-star">*</span></label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="gender" value="Male" required checked /> Male
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="gender" value="Female" required /> Female
+          </label>
+        </div>
+      </div>
+
+      <!-- State -->
+      <div class="form-group">
+        <label for="state">State<span class="required-star">*</span></label>
+        <select id="state" name="state" required>
+          <option value="" disabled selected>Select State</option>
+          <option value="Kerala">Kerala</option>
+          <option value="Tamil Nadu">Tamil Nadu</option>
+          <option value="Karnataka">Karnataka</option>
+          <option value="Andhra Pradesh">Andhra Pradesh</option>
+          <option value="Telangana">Telangana</option>
+          <option value="Maharashtra">Maharashtra</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Goa">Goa</option>
+        </select>
+      </div>
+
+      <!-- Skills -->
+      <div class="form-group">
+        <label>Skills<span class="required-star">*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="skills" value="Java Script" checked /> Java Script
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="skills" value="Python" /> Python
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="skills" value="C++" checked /> C++
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="skills" value="Java" /> Java
+          </label>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="footer-note">
+      URK24CS1158 &bull; Web Technology Lab Ex. 10
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("regForm");
+    form.addEventListener("submit", function(event) {
+      const skillsChecked = document.querySelectorAll('input[name="skills"]:checked');
+      if (skillsChecked.length === 0) {
+        event.preventDefault();
+        alert("Please select at least one skill.");
+      }
+    });
+  </script>
+</body>
+</html>
